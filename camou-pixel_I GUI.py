@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
-
 """
-    This script is for HT-301, T3S & T2L downloaded from EEVblog
-    COMMENTS in:
-    1.   "## []" is written by AHSAN for consideration for building script in MATLAB
-    2.   script marked between ####..... is to conversion to MATLAB
+    Camou-pixel-I GUI
+    This code is for HT-301, T3S & T2L downloaded from EEVblog
 
     For T2L (replace the resotion 292*384 by 196*256)
 """
@@ -23,22 +19,11 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 
-###################################################### For MATLAB ###################################################################
+#####################################################################################################################################
 is_64bits = sys.maxsize > 2**32
 print('Loading binary')
 XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Project1.dll'))   # Xtherm.dll
 print('Ok')
-##if sys.platform == "win32" or "win64":
-##    if is_64bits:
-##        print('Loading Win64 binary')
-##        XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll64.dll'))
-##    else:
-##        print('Loading Win32 binary')
-##        XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll.dll'))
-##elif sys.platform == "linux":
-##    XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll.so'))
-##else:
-##    print('Unsupported Platform')  
 #####################################################################################################################################
     
 if not hasattr(QtGui.QImage, 'Format_Grayscale16'):
@@ -389,29 +374,11 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
                              tmparr.ctypes.data_as(POINTER(c_float)),
                              alltmp.ctypes.data_as(POINTER(c_float)))
 
-##        print('TempData:maxtmp:{:.2f},maxx:{:d},maxy:{:d},mintmp:{:.2f},minx:{:d},miny:{:d},center:{:.2f}'.
-##            format(maxtmp.value, maxx.value, maxy.value, mintmp.value,
-##                   minx.value, miny.value, centertmp.value))
-##        np.savetxt(
-##            "TEMP-" +
-##            self.FrameTimeStamp.strftime('%Y-%m-%dT%H-%M-%S') +
-##            ('-%02d' % (self.FrameTimeStamp.microsecond / 10000)) + ".csv",
-##            alltmp.reshape(192, 256), 
-##            delimiter=",",
-##            fmt='%.2f')  # 192, 256
-##        print('Done')
-        
-##        print("TEMP data")
-##        print(alltmp.reshape(192,256))
-
-
         '''
-            Script to grab average temperature of Hexagon camou-pixel and its surrounding
+            *** Script to grab average temperature of Hexagon camou-pixel and its surrounding - written by RMA
         '''
         temp_data = alltmp.reshape(192,256)
         grayscale = temp_data
-
-        #h = matlab_style_gauss2D()
         
         m,n = [(ss-1.)/2. for ss in (50,50)]
         y,x = np.ogrid[-m:m+1,-n:n+1]
@@ -420,60 +387,30 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         sumh = h.sum()
         if sumh != 0:
             h /= sumh
-##    
+
         filtered = cv2.filter2D(grayscale,-1,h)
         
         #cv2.imshow('Identity', filtered)
         #Edgecanny = Canny_detector(filtered)
         Kx = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], np.float32)
         Ky = np.array([[1, 2, 1], [0, 0, 0], [-1, -2, -1]], np.float32)
-##            
+
         Ix = ndimage.convolve(filtered, Kx)
         Iy = ndimage.convolve(filtered, Ky)
-
-##        Ix = ndimage.filters.convolve(filtered, Kx)
-##        Iy = ndimage.filters.convolve(filtered, Ky)
             
         G = np.hypot(Ix, Iy)
-##        print("G")
-##        print(G)
-##        print("G max")
-##        print(G.max())
         G = G / G.max() * 255
         theta = np.arctan2(Iy, Ix)
-##        
+
         GG = cv2.threshold(G, 100, 255, cv2.THRESH_BINARY)[1]
-##        #(thresh, im_bw) = cv2.threshold(G, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-        #bw = G.point(lambda x: 0 if x<128 else 255, '1')
-##
-##
-##
-##
-##        #cv2.imshow('Edge detection', Edgecanny)
-##        #X = imfill(Edgecanny)
         X = ndimage.binary_fill_holes(GG).astype(float)
-##       
-##
-##
         X.astype(int)
         Bw = X
-##
+        
         Bw[:,1:128] = 0     # set pixels value to 0 on left side
         Bw[:,-1-93:-1] = 0  # set pixels value to 0 on right side
         Bw[1:58, :] = 0     # set pixels value to 0 on top side
         Bw[-1-97: -1, :] = 0  # set pixels value to 0 on bottom side
-##
-##        fig, ax = plt.subplots()
-##        # show image
-##        image = ax.imshow(Bw,cmap = 'gray')
-##        fig.show() # show f
-
-##        fig, ax = plt.subplots()    
-##        # show image
-##        plt.title('Bw')
-##        image = ax.imshow(Bw,cmap = 'gray')
-##        fig.show() # show f
-##        plt.title('Bw')
 
         #print("Bw length")
         #print(Bw)
@@ -482,22 +419,17 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         y = np.where(Bw == 1)
         
         row = len(y[0])
-####        #col = len(y[1])
         col = row
-##        print(row)
-####
-####
-####        #temp = [[None] * row for _ in range(row)]
+
         temp = np.empty(row, dtype=float)
-##
+
         for i in range(0,row-1):
              #print(i)
              x = y[0][i]
              z = y[1][i]
              temp[i] = temp_data[x,z]
              ##print("detected edges")
-        #print('X')
-##             
+ 
         if len(temp) != 0:
             pixel_temp = 1
             #print("t")
@@ -508,49 +440,38 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         else:
             pixel_temp = 0
 
-
-##
-##
-##
         background = Bw
         background[45:98 , 117:181] = 1
-##
-##        fig, ax = plt.subplots()
-##        image = ax.imshow(background,cmap = 'gray')
-##        fig.show()
-##
-##
-##        #temp = np.empty(row, dtype=float)
+
         background_img = background
         for i in range(0,row-1):
              x = y[0][i]
              z = y[1][i]
              background_img[x,z] = 0
-##
-##
-##
+
         yy = np.where(background_img == 1)
         row = len(yy[0])
-##        #col = len(y[1])
+
         col = row
-##
+        
         bg_temp = np.empty(row, dtype=float)
         for i in range(0,row-1):
              xx = yy[0][i]
              zz = yy[1][i]
              bg_temp[i] = temp_data[xx,zz]
-##
+
         if len(bg_temp) != 0:
             bg_temp_max = max(bg_temp)
             bg_temp_avg = sum(bg_temp) / len(bg_temp)
             #print('by ta')
             #print(bg_temp_avg)
-##
-##        
-##
-##        '''
-##            End of script for grabbing average temperatire of camou-pixel and surrounding
-##        '''
+
+        
+ 
+
+        '''
+            End of script for grabbing average temperatire of camou-pixel and surrounding
+        '''
         
         # display image on GUI
         outputFrame = cv2.normalize(
