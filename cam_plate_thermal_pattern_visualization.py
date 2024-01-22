@@ -37,17 +37,14 @@ temp_size = np.size(temp_data)
 ##print(temp_data)
 ##print(temp_size)
 
-##x = temp_data[26719]
-##print(x)
-
 ii = 0
-xg = []#[None] * math.ceil((len(x_cord)/2))
+xg = []
 xg = [0.0 for i in range(math.ceil((len(x_cord)/2)))]
 q = math.ceil((len(x_cord)/2))
 ##print(q)
-yg = []#[None] * math.ceil((len(x_cord)/2))
+yg = []
 yg = [0.0 for i in range(math.ceil((len(x_cord)/2)))]
-zg = []#[None] * math.ceil((len(x_cord)/2))
+zg = []
 zg = [0.0 for i in range(math.ceil((len(x_cord)/2)))]
 for i in range(0,len(x_cord),2):
     xg[ii] = x_cord[i]
@@ -58,15 +55,6 @@ for i in range(0,len(x_cord),2):
 xg_size = np.size(xg)
 yg_size = np.size(yg)
 zg_rows = len(zg)
-#zg_cols = len(zg[0])
-##print("size")
-##print(xg_size)
-##print(yg_size)
-##print(zg_rows)
-##
-##print(zg)
-##
-##print(zg[13358])
 
 x = np.linspace(-88,88,1761)
 y = np.linspace(-101,101,2021)
@@ -90,20 +78,9 @@ temp_cols = len(temperature[0])
 ##print(temp_rows,temp_cols)
 
 """
-    Plotting figures (2D heat map and 3D surface plot)
+    Plotting figures (2D heat map)
 """
 
-# Plotting 3D surface Plot
-##fig = plt.figure() 
-##ax = plt.axes(projection ='3d')
-##my_cmap = plt.get_cmap('jet')
-##surf = ax.plot_surface(X, Y, temperature,cmap=my_cmap,edgecolor='none')  #plot_surface 
-##ax.view_init(90, 0)
-##fig.colorbar(surf, ax=ax)
-##ax.grid(False)
-##plt.show()
-
-# Plot 2D heat map of camou-plate
 fig = plt.figure()
 plt.plot(xhex,yhex)
 
@@ -117,72 +94,3 @@ plt.show()
 """
     plotting end
 """
-
-#cnt = 0
-##print(X[:,0])
-
-##x1 = [0.0 for i in range(X_cols)]
-##y1 = [0.0 for i in range(X_cols)]
-##t1 = [0.0 for i in range(X_cols)]
-##XX = [0.0 for i in range(X_cols*X_rows)]
-##YY = [0.0 for i in range(X_cols*X_rows)]
-##tt = [0.0 for i in range(X_cols*X_rows)]
-##for i in range(0,X_cols):
-##    x1 = X[:,i]
-##    y1 = Y[:,i]
-##    t1 = temperature[:,i]
-##    for ii in range(0,X_rows):
-##        XX[cnt] = x1[ii]
-##        YY[cnt] = y1[ii]
-##        tt[cnt] = t1[ii]
-##        cnt += 1
-##    x1 = []
-##    y1 = []
-##    t1 = []
-##
-##x_t = np.transpose(XX)
-##y_t = np.transpose(YY)
-##t_t = np.transpose(tt)
-##print(len(x_t))
-##print(len(y_t))
-##print(len(t_t))
-####plt.scatter(x_t,y_t,t_t,cmap='jet')
-##plt.show()
-
-
-
-##fig = plt.figure()
-##cs = plt.contourf(X, Y, temperature,cmap='jet')
-##norm= matplotlib.colors.Normalize(vmin=cs.cvalues.min(), vmax=cs.cvalues.max())
-##sm = plt.cm.ScalarMappable(norm=norm, cmap = cs.cmap)
-##sm.set_array([])
-##fig.colorbar(sm, ticks=cs.levels)
-###plt.colorbar(cp) # Add a colorbar to a plot
-##
-####ax.set_title('Filled Contours Plot')
-#####ax.set_xlabel('x (cm)')
-####ax.set_ylabel('y (cm)')
-##plt.axis('image')
-##plt.show()
-
-##x1_rows = len(x1)
-##x1_cols = len(x1[0])
-##print("x1")
-##print(x1_rows,x1_cols)
-
-
-
-
-
-##with open('hex_grids_data(20 sec).txt') as inf:
-##    reader = csv.reader(inf, delimiter=" ")
-##    second_col = list(zip(*reader))[1]
-##    print(inf)
-
-
-
-##
-##plt.show()
-
-
-
