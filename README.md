@@ -26,12 +26,15 @@ TERMS and their definition
         (c).  
     ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/199c37b7-4641-4314-9530-190bd5699dcf)
 
-   v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO. 
-      Below figure depicts the determined corner points by using SPA aalgorithm. Where the blue-colored pixels represents the corners of camou-pixel-I in thermal frame and green-colored pixels represents the centroid of the clusters of pixels at the corners.
+   v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining        the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO. 
+      Below figure depicts the determined corner points by using SPA aalgorithm. Where the blue-colored pixels represents the corners of        camou-pixel-I in thermal frame and green-colored pixels represents the centroid of the clusters of pixels at the corners.
       ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/0f0e823d-d45e-4cea-8fbc-925d57ad765c)
 
   
-  Below figure depicts the regions of camou-pixel-I and its surrounding. The coordinates of these regions are grabbed into an array in the GUI code and average temperature of both the regions are calculated. Which will be transmitted serially to the micro-controller as the set-point and process-variable. The average temperature of the background is termed as "set-point" and the average temperature of camou-pixel-I is termed as "process-variable".
-  ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/47331b15-9aa9-4996-8cf6-07a447bfa38b)
+      Below figure depicts the regions of camou-pixel-I and its surrounding. The coordinates of these regions are grabbed into an array         in the GUI code and average temperature of both the regions are calculated. Which will be transmitted serially to the micro-              controller as the set-point and process-variable. The average temperature of the background is termed as "set-point" and the              average temperature of camou-pixel-I is termed as "process-variable".
+      ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/47331b15-9aa9-4996-8cf6-07a447bfa38b)
+
+      Below figure depicts the the view of camou-pixel-I in the real-time thermal frame with uniform background region (located on left)        and the real thermal background region (located on right).
+      ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/83f8848f-2d18-432d-be3b-e298b48892ff)
 
 shape_detection_v6.py   -----> code for
