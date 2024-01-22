@@ -1,16 +1,8 @@
-#!/usr/bin/env python3
-
 """
-    This script is for HT-301, T3S & T2L downloaded from EEVblog
-    COMMENTS in:
-    1.   "## []" is written by AHSAN for consideration for building script in MATLAB
-    2.   script marked between ####..... is to conversion to MATLAB
-
-    For T2L (replace the resotion 292*384 by 196*256)
+    camou-pixel-I blending GUI code 
 """
 
 
-"""Example Program for XTherm T3s Camera using OpenCV"""
 import serial
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -45,22 +37,11 @@ from numpy import *
 from collections import deque
 from test import *
 import csv
-###################################################### For MATLAB ###################################################################
+#####################################################################################################################################
 is_64bits = sys.maxsize > 2**32
 print('Loading binary 64 bit version of XthermDLL.dll file')
 XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Project1.dll'))   # Xtherm.dll
 print('Ok')
-##if sys.platform == "win32" or "win64":
-##    if is_64bits:
-##        print('Loading Win64 binary')
-##        XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll64.dll'))
-##    else:
-##        print('Loading Win32 binary')
-##        XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll.dll'))
-##elif sys.platform == "linux":
-##    XthermDll = cdll.LoadLibrary(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'XthermDll.so'))
-##else:
-##    print('Unsupported Platform')  
 #####################################################################################################################################
     
 if not hasattr(QtGui.QImage, 'Format_Grayscale16'):
@@ -81,7 +62,7 @@ except Exception as e:
 ## When this python code is run then initially send flag 'R' to start heating the camou-plate.
 ## when the command sent is received successfully then micro-controller will send flage '1'.
 ## and while loop terminates.
-## Delay of 5 sec, after the delay the the gui will load while the camou-plate is still heating
+## Delay of 5 sec, after the delay the gui will load while the camou-plate is still heating
 
 start = 'R'
 while True:
@@ -227,18 +208,16 @@ class FrameGrabbingThread(QtCore.QThread):
         
         self.running_signal.connect(self.running_signal_slot)
 
-##        print(data)
-
     def running_signal_slot(self, signal):
         self.running = True if signal == 1 else False
-##        print(self.running)
+
 
     def run(self):
         
         while True:
             if self.running:
                 # capture frame-by-frame
-####                ret, data = self.camera.read()
+##                ret, data = self.camera.read()
                 data = genfromtxt('TEMP-2022-09-08T16-30-24-86.csv', delimiter=',')  #
 
                 ret = True
@@ -249,11 +228,6 @@ class FrameGrabbingThread(QtCore.QThread):
 ##                    data = data.view(np.uint16).reshape(196, 256) #292, 384
                     data[0:192, :] = self.calFunc(data[0:192, :]) #data[0:288, :]
                     self.image_data_signal.emit(data)
-
-                    # print('grabbed: ', count,',',tmp_avg)
-
-
-
                 else:
                     print('Frame grabbing failed')
                     exitNow()
@@ -279,32 +253,10 @@ class ThermalVideoStream(QtCore.QObject):
         else:
             self.camera = cv2.VideoCapture(camera_port)  # ,cv2.CAP_DSHOW)
 
-##        if not self.camera:
-##            sys.exit("Xtherm camera not found")
-        ######################
+
         self.calOffset = np.zeros((192, 256), dtype=np.int16) # (288, 384)
         self.calSlope = np.ones((192, 256), dtype=np.float32) # (288, 384)
-        #######################
-##        self.camera.set(cv2.CAP_PROP_CONVERT_RGB, 0)  # CV_CAP_PROP_CONVERT_RGB
-##        # CV_CAP_PROP_ZOOM use raw mode
-##        self.camera.set(cv2.CAP_PROP_ZOOM, 0x8004)
-##        # CV_CAP_PROP_ZOOM calibrate
-##        self.camera.set(cv2.CAP_PROP_ZOOM, 0x8000)
-##        # CV_CAP_PROP_ZOOM temperature mode?
-##        self.camera.set(cv2.CAP_PROP_ZOOM, 0x8020)
-##        XthermDll.DataInit(256, 192) # 384, 288
         print("resolution set")
-##        while True:
-##            ret, rawFrame = self.camera.read()
-##            if not ret:
-##                print('Frame grabbing failed')
-##                time.sleep(1)
-##                continue
-##            if not (rawFrame.size == 196 * 256 * 2):  # 292 * 384 * 2
-##                print('ERROR: Incorrect frame size, wrong camera selected?')
-##                exitNow()
-##            else:
-##                break
 
         #XthermDll.UpdateParam(tempMode, rawFrame.ctypes.data_as(POINTER(c_byte)))
 
@@ -526,7 +478,7 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
 
     def image_data_slot(self, rawFrame):
         global img2, filename, writer, DS18b20, set_point, camou_temp,qq ,q, rating, T_min, T_max, T_diff, T,cnt,fg,u,ax_bgnd, fig, xdata, ydata,ax,line,line1,count, ccc, surr_temps, surr_xx, surr_zz, surr_coord, surr_temp_avg, filled_hex_coord, xx, zz, temps, tmp_avg, pixel_temp ,fl, flg, cc, drawHiLo, use_clahe, clahe, colormap, use_NLMDenoising, use_deStrip, deStripk, deStripIter, use_equHist, use_bf, bf_sigmaColor, use_sharpening, sharpening_kernel
-##        print('TT')
+
         self.FrameTimeStamp = datetime.datetime.now()
         self.bufferedRawFrame = rawFrame
         maxtmp = c_float()
@@ -538,14 +490,6 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         centertmp = c_float()
         tmparr = np.zeros(3, dtype=np.float32)
 
-
-        # XthermDll.GetTmpData(1, rawFrame.ctypes.data_as(POINTER(c_byte)),
-        #                      byref(maxtmp), byref(maxx), byref(maxy),
-        #                      byref(mintmp), byref(minx), byref(miny),
-        #                      byref(centertmp),
-        #                      tmparr.ctypes.data_as(POINTER(c_float)),
-        #                      0)  # full frame temperature not necessary
-        # there is not transformed temperature data in 400 deg range, use pixel values instead
         if tempMode:
             print("TEMP MODE encaled")
             maxtmp.value = rawFrame[192, 4] # [288, 4]
@@ -565,8 +509,6 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         outputFrame = np.transpose(outputFrame)
 
         # print('OUt Frame: ' , outputFrame)
-
-
         maxtmp = c_float()
         maxx = c_int()
         maxy = c_int()
@@ -595,31 +537,22 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         # img = cv2.resize(img, (self.resx, self.resy - self.infobarY), resizeAlgo)
 
 ##        print(img)
-        #fl = 0
-        #flg = 2
-        #print(fl,flg)
-        if fl == 0 and flg == 2:
 
-##            print('f1',fl)
+        if fl == 0 and flg == 2:
             h = self.matlab_style_gauss2D()      # create gaussian filter
             im = np.zeros((256,192))
 
             im = cv2.filter2D(img,-1,h)          # filter image pixel data 
-            tp_min = 15
-        #print(tp_min)
-        ##tp_max = im.max()
-            tp_max = 50
-        #print(tp_max)
+            tp_min = im.min()
+            tp_max = im.max()
+            
             Norm_image = (im - tp_min) * ((255-0) / (tp_max - tp_min)) + 0
             round_off = np.round_(Norm_image)
 
             round_off = np.uint8(round_off)
             Edgecanny = cv2.Canny(round_off, 200.0, 255.0)
-            #print("Ec")
-   
+             
             val_gray = np.where(Edgecanny == 255)
-        ##print('gray val')
-        ##print(val_gray[0][:])
 
             Edgecanny[val_gray[0][:],val_gray[1][:]] = 1
             Edgecanny[:,0:110] = 0
@@ -662,7 +595,6 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
         #print(corners)
 
             if r > 6:
-##                print(r)
                 flag = 1
                 y = 1
                 corner_coord = []
@@ -670,18 +602,6 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
                     x = 0
                     corner_coord.append((corners[y][x], corners[y][x+1]))
                     y += 1
-
-            #print(corners)
-        #print(corner_coord)
-        #print(len(corner_coord),len(corner_coord[0]))
-        
-##                origin = []
-##                origin.append(corners[y-1][x])
-##                origin.append(corners[y-1][x+1])
-##
-##                refvec = [0,1]
-
-            #print(corner_coord)
 
 
             #corner_sort = sorted(corner_coord, key = self.clockwiseangle_and_distance)    # self.clockwiseangle_and_distance
@@ -692,13 +612,7 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
                 x_center = int(center[0])
                 y_center = int(center[1])
                 y_center = y_center-2
-            #print('center',x_center,y_center)
-            #print('central coordinates', x_center, y_center)
-            #print('ss',ss)
                 corner_sort = ss
-##                print(corner_sort)
-##                print(x_center,y_center)
-
             
             #print('corner sort')
         #corner_sort = corner_coord
@@ -1065,31 +979,11 @@ class ThermalDisplayWidget(QtWidgets.QWidget):
             # tmp_avg = tmp_avg +count
             self.plot_signal.emit(tmp_avg, surr_temp_avg, count)
             # self.plot_signal1.emit(count)
-######            print('Average temperature of camou-plate',camou_temp)
-##            camou = Decimal(cam_plate)
-##            camou_temp = int(camou.shift(2))
-##            camou_T = str(camou_temp) + "\n"
-##            print('decimal val ', camou_temp)    
-##            val_camou = 0
 
             bg_temp = "{:.2f}".format(surr_temp_avg)
-            # bg_temp = 22.34
-
-######            print('Average temperature of surrounding',bg_temp)
-##            sur = Decimal(s)
-##            surround_temp = int(sur.shift(2))
-##            surr_T = str(surround_temp) + "\n"
-##            surr_T = str(surround_temp) + 'p' + str(camou_temp) + "\n"
-##            print('decimal val ', surr_T)            
-##            val_surround = 0
-
+            
             B = str(bg_temp) + 'p' + str(camou_temp) + 'e'
-####            print('Ready to send data')
 
-
-            # print('converted surround temperature',B)
-##            while True:
-##                print(B)
             count += 1
             print(count)
 
