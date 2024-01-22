@@ -7,5 +7,5 @@ TERMS and their definition
 1.  Prior to the experimental setup, I have created the pseudo-simulation environment in the Finite Element Machine (FEM) software i.e COMSOL Multiphysics. And written the sample code in Python, for viewing the thermal gradient developed on the surface of camou-pixel.
     cam_plate_thermal_pattern_visualization.py -----> PYTHON file  
     hex_grids_data(20 sec).txt -----> sample file exported from FEM simulation software
+   ![img1](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/298e3e8b-9a45-4ec2-9da4-b0baaa691ffb)
 
-2.   
