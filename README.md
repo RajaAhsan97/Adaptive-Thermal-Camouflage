@@ -14,9 +14,13 @@ TERMS and their definition
     includes:
     i. Identity Linear transformation Method (ILTM) ----> for transformation of spatial thermal frame to gray scale (0-255) domain
     ii. Canny Edge Detection Method (CEDM) ----> for determining the contour of camou-pixel-I
+    ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/7ea353eb-63ac-4222-b923-17d799f07d43)
+
     iii. Harris Corner Detection Method (HCDM) ----> for determining the corner coordinates of camou-pixel-I.
     iv. Dilation Morphological Operation(DMO) ----> The fact that HCDM does not determine the single corner point of the camou-pixel-I            geometry due to the low resolution of the captured thermal frame. Thus, it is required to enhance the corner points of the       
         geometry i.e. cluster of pixel at the corners of thermal frame, and determining its centroid in order to obtain a single corner   
-        pixel of the camou-pixel-I      
-    shape_detection_v6.py   -----> code for 
+        pixel of the camou-pixel-I       
    v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO.
+
+
+shape_detection_v6.py   -----> code for
