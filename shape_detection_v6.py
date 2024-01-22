@@ -21,7 +21,6 @@ from numpy import genfromtxt
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-#import scipy.ndimage
 from scipy import ndimage
 import math
 import operator
