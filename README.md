@@ -9,4 +9,14 @@ TERMS and their definition
     hex_grids_data(20 sec).txt -----> sample file exported from FEM simulation software
    ![img1](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/298e3e8b-9a45-4ec2-9da4-b0baaa691ffb)
 
-2.  camou-pixel_I GUI.py  ---->   further amendments are made in the GUI code to grabbing the contour of pixel, determining the average temperature of      the camou-pixel and its background 
+2.  camou-pixel_I GUI.py  ----->   further amendments are made in the GUI code to grabbing the contour of pixel, determining the average temperature of      the camou-pixel and its background.
+    Testing code for acquiring the contour of camou-pixel-I by implementing Machine Vision Techniques (MVT) for model training, which   
+    includes:
+    i. Identity Linear transformation Method (ILTM) ----> for transformation of spatial thermal frame to gray scale (0-255) domain
+    ii. Canny Edge Detection Method (CEDM) ----> for determining the contour of camou-pixel-I
+    iii. Harris Corner Detection Method (HCDM) ----> for determining the corner coordinates of camou-pixel-I.
+    iv. Dilation Morphological Operation(DMO) ----> The fact that HCDM does not determine the single corner point of the camou-pixel-I            geometry due to the low resolution of the captured thermal frame. Thus, it is required to enhance the corner points of the       
+        geometry i.e. cluster of pixel at the corners of thermal frame, and determining its centroid in order to obtain a single corner   
+        pixel of the camou-pixel-I      
+    shape_detection_v6.py   -----> code for 
+   v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO.
