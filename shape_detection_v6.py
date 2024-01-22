@@ -1,20 +1,21 @@
 """
-     This code uses Canny Edge detection to find the edges and
+     code by RMA
+     
+     This code uses Canny Edge detection to find the edges, and
      detection of corner points of the hexagon by using Harris
      corner detction algorithm furthermore for precise detection
-     of cornor points OpenCv function {cornersubpix} is used.
+     of corner points OpenCv function {cornersubpix} is used.
 
      The center point for the hexagon is successfully detected but
      for some grabbed frames .csv file, some point between the
      corner points is also detected by which the center point of hexagon
      is not determined correctly.
      To correct this problem , my idea is to sort the detected corner
-     points in clockwise/anticlockwise order and compue the distance
+     points in clockwise/anticlockwise order and compute the distance
      between the neigbouring corner points, if distance between them
-     is less than the maximum distance the neglect the center point
+     is less than the maximum distance then neglect the center point
      between the corner points
 """
-
 
 from numpy import genfromtxt
 import cv2
@@ -63,7 +64,9 @@ def clockwiseangle_and_distance(point):
     # but if two vectors have the same angle then the shorter distance should come first.   
     return angle, lenvector
 
-
+## ___________________________________________________________________________________________________________________
+## Sample .csv file (for testing) of the saved thermal frame from GUI (i.e camou-pixel_I GUI.py) used to acquire the 
+## contour of camou-pixel I and determining the centrod
 # TEMP-2022-08-04T12-25-01-22.csv
 # TEMP-2022-08-12T16-59-08-14.csv
 # TEMP-2022-08-12T16-59-14-11.csv
@@ -71,35 +74,35 @@ def clockwiseangle_and_distance(point):
 # TEMP-2022-08-05T17-11-33-86.csv
 
 ## TEMP-2022-08-17T16-43-23-75.csv
-## TEMP-2022-08-22T11-24-49-79
-## TEMP-2022-08-22T12-14-39-93
-## TEMP-2022-08-22T12-14-41-77
-## TEMP-2022-08-22T12-14-43-51
-## TEMP-2022-08-22T13-02-07-54
+## TEMP-2022-08-22T11-24-49-79.csv
+## TEMP-2022-08-22T12-14-39-93.csv
+## TEMP-2022-08-22T12-14-41-77.csv
+## TEMP-2022-08-22T12-14-43-51.csv
+## TEMP-2022-08-22T13-02-07-54.csv
 
-## TEMP-2022-08-22T13-02-08-80
-## TEMP-2022-08-22T13-02-11-99
-## TEMP-2022-08-22T13-18-04-42
-## TEMP-2022-08-30T18-42-32-78
+## TEMP-2022-08-22T13-02-08-80.csv
+## TEMP-2022-08-22T13-02-11-99.csv
+## TEMP-2022-08-22T13-18-04-42.csv
+## TEMP-2022-08-30T18-42-32-78.csv
 
-## TEMP-2022-08-22T14-24-25-02
-## TEMP-2022-08-22T14-24-27-12
-## TEMP-2022-08-22T14-24-28-24
-## TEMP-2022-08-22T14-24-30-27
-## TEMP-2022-08-22T14-24-31-94
-## TEMP-2022-08-22T14-24-36-98
-## TEMP-2022-08-22T14-46-12-53
-## TEMP-2022-09-01T14-56-05-18
-## TEMP-2022-09-01T14-56-01-24
-## TEMP-2022-09-01T14-55-52-98
-## TEMP-2022-08-30T17-56-52-85
-## TEMP-2022-08-30T17-56-46-28
-## TEMP-2022-08-30T18-33-06-20
+## TEMP-2022-08-22T14-24-25-02.csv
+## TEMP-2022-08-22T14-24-27-12.csv
+## TEMP-2022-08-22T14-24-28-24.csv
+## TEMP-2022-08-22T14-24-30-27.csv
+## TEMP-2022-08-22T14-24-31-94.csv
+## TEMP-2022-08-22T14-24-36-98.csv
+## TEMP-2022-08-22T14-46-12-53.csv
+## TEMP-2022-09-01T14-56-05-18.csv
+## TEMP-2022-09-01T14-56-01-24.csv
+## TEMP-2022-09-01T14-55-52-98.csv
+## TEMP-2022-08-30T17-56-52-85.csv
+## TEMP-2022-08-30T17-56-46-28.csv
+## TEMP-2022-08-30T18-33-06-20.csv
 ## TEMP-2022-09-08T16-30-24-86.csv
 ##TEMP-2022-09-08T16-30-24-86.csv
+## ___________________________________________________________________________________________________________________
 
 img = genfromtxt('TEMP-2022-09-08T16-30-24-86.csv', delimiter = ',')
-## TEMP-2022-09-08T16-30-24-86.csv
 
 h = matlab_style_gauss2D()
 
@@ -126,7 +129,7 @@ print(tp_min)
 tp_max = np.max(im)
 print(tp_max)
 
-# normalization of thermal data to Grey scale values (0-255)
+# normalization of thermal data to Grey scale values (0-255) - Linear transformation method 
 Norm_image = (im - tp_min) * ((255-0) / (tp_max - tp_min)) + 0
 
 
@@ -147,7 +150,6 @@ plt.savefig("Identity_linear_Transformed.png", bbox_inches="tight", transparent=
 print(round_off)
 
 # CONTOUR Detection - EDGE CANNY 
-##round_off = np.uint8(round_off)
 Edgecanny = cv2.Canny(round_off, 200.0, 255.0, L2gradient = False)
 
 fig, ax = plt.subplots()
@@ -262,8 +264,6 @@ plt.colorbar(image)
 fig.show() # show f
 plt.savefig("Cropped Harris corners (dilate-thresholded).png", bbox_inches="tight", transparent=True)
 
-
-
 # find centroids
 ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 
@@ -366,10 +366,8 @@ print("Distance measurement")
 
 print('corner points', corner_sort)
 
-
 corner_points = corner_sort 
 print('corner points', corner_points)
-
 
 ## calculating center points of hexagon from each opposite corner points  
 x_left_top, y_left_top = corner_points[0][0], corner_points[0][1]   # 0
@@ -624,4 +622,3 @@ plt.xticks([])
 plt.yticks([])
 plt.colorbar(image)
 plt.savefig("GUI THERMAL FRAME SHOW (REAL BACKGROUND).png", bbox_inches="tight", transparent=True)
-
