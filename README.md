@@ -26,7 +26,10 @@ TERMS and their definition
         (c).  
     ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/199c37b7-4641-4314-9530-190bd5699dcf)
 
-   v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO.
+   v. Sub-Pixel Accuracy (SPA) algorithm ----> This algorithm is based on Orthogonal Vector Theory (OVT) and is utilized for determining the precise corners of camou-pixel-I from the cluster of pixels, obtained from DMO. 
+      Below figure depicts the determined corner points by using SPA aalgorithm. Where the blue-colored pixels represents the corners of camou-pixel-I in thermal frame and green-colored pixels represents the centroid of the clusters of pixels at the corners.
+      ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/0f0e823d-d45e-4cea-8fbc-925d57ad765c)
+
 
 
 shape_detection_v6.py   -----> code for
