@@ -10,7 +10,8 @@ TERMS and their definition
    ![img1](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/298e3e8b-9a45-4ec2-9da4-b0baaa691ffb)
 
 2.  camou-pixel_I GUI.py  ----->   further amendments are made in the GUI code to grabbing the contour of pixel, determining the average temperature of the camou-pixel and its background.
-    Testing code (shape_detection_v6.py) for acquiring the contour of camou-pixel-I by implementing Machine Vision Techniques (MVT) for model training, which   
+
+3.  The thermal frame saved from the above GUI code is used for the testing code (shape_detection_v6.py) for acquiring the contour of camou-pixel-I by implementing Machine Vision Techniques (MVT) for model training, which   
     includes:
     i. Identity Linear transformation Method (ILTM) ----> for transformation of spatial thermal frame to gray scale (0-255) domain
     ii. Canny Edge Detection Method (CEDM) ----> for determining the contour of camou-pixel-I.
@@ -36,3 +37,5 @@ TERMS and their definition
 
       Below figure depicts the the view of camou-pixel-I in the real-time thermal frame with uniform background region (located on left) and the real thermal background region (located on right).
   ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/3ccc6a0a-48bf-478f-8cb6-b5bb0ae48b1d)
+
+4. xthermpyshowpyqt_(average_temps)v6.py ----> is the actual code in which all the above discussed techniques of machine vision for trained model is implemented and also connection of python with micro-controller is initiated. Which is used to blend the camou-pixel-I in the surrounding thermal background region by processing the acquired set-point and process-variable with the aid of Proportional Integrative and Derivative (PID) control algorithm.  
