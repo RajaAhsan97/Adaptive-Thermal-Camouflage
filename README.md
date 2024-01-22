@@ -9,3 +9,4 @@ TERMS and their definition
     hex_grids_data(20 sec).txt -----> sample file exported from FEM simulation software
    ![img1](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/298e3e8b-9a45-4ec2-9da4-b0baaa691ffb)
 
+2.  camou-pixel_I GUI.py  ---->   further amendments are made in the GUI code to grabbing the contour of pixel, determining the average temperature of      the camou-pixel and its background 
