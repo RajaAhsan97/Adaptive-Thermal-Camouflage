@@ -39,3 +39,5 @@ TERMS and their definition
   ![image](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/3ccc6a0a-48bf-478f-8cb6-b5bb0ae48b1d)
 
 4. xthermpyshowpyqt_(average_temps)v6.py ----> is the actual code in which all the above discussed techniques of machine vision for trained model is implemented and also connection of python with micro-controller is initiated. Which is used to blend the camou-pixel-I in the surrounding thermal background region by processing the acquired set-point and process-variable with the aid of Proportional Integrative and Derivative (PID) control algorithm.  
+
+5. TEC_PID_ctrl_single_pic_camouflage_v4.ino  ----> is the PID control algorithm code implemented on micro-controller for minimizing the error between the set-point (background temperature) and the process-variable (camou-pixel-I temperature).
