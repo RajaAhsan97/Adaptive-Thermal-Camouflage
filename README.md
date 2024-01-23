@@ -61,3 +61,5 @@ CAMOU-PIXEL-II:
 7. ATC_systemII_GUI.py   ----> Final code 
 
 8. CTGP-II Locations Temperatures.txt ----> file in which set-points of every TECs are stored, which is then used for the PID controller 
+
+9. ATC2_PID_BRETT_v10.ino  ----> PID control algorithm implemented on micro-controller for camou-pixel-II
