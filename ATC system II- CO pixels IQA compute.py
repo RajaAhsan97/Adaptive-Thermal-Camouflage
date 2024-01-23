@@ -119,13 +119,6 @@ for LOC_y in range(0,10):
         coord_CTGP_simulation = np.where((CTGP_1_SIM_temp_reshape_degC >= 0.0) & (CTGP_1_SIM_temp_reshape_degC <= CTGP_II_max_temp))
         coord_outside = np.where((CTGP_1_SIM_temp_reshape_degC >= 0.0) & (CTGP_1_SIM_temp_reshape_degC < CTGP_II_min_temp))
 
-##        if thermal_color <= 20:
-##            thermal_color = thermal_color + 5
-##            CTGP_1_SIM_temp_reshape_degC[coord[0][:], coord[1][:]] = CTGP_1_SIM_temp_reshape_degC[coord[0][:], coord[1][:]] + thermal_color
-##        else:
-##            thermal_color = 5
-##            CTGP_1_SIM_temp_reshape_degC[coord[0][:], coord[1][:]] = CTGP_1_SIM_temp_reshape_degC[coord[0][:], coord[1][:]] + thermal_color
-
         CTGP1_tp_min = CTGP_1_SIM_temp_reshape_degC.min()
         CTGP1_tp_max = CTGP_1_SIM_temp_reshape_degC.max()
         # normalization of thermal data to Grey scale values (0-255)
@@ -160,7 +153,6 @@ for LOC_y in range(0,10):
             corner_coord.append((cX, cY))
             i = i+1
 
-##        print('Centroid: ', cX, cY)
 
         val_gray = np.where(Edgecanny == 255)
         Edgecanny[val_gray[0][:],val_gray[1][:]] = 1
