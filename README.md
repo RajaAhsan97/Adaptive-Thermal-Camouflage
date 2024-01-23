@@ -49,9 +49,10 @@ CAMOU-PIXEL-II:
 6. Pixelated_CV90.emf  ----> array of camou-pixel-II for creating the structure of Object
 
 7. ATC system II- CO SP extraction.py  ----> for grabbing set-points for every TECs on camou-pixel-II array forming the structure of CO
+   
 8. ATC system II- CO pixels IQA compute.py  ----> for computation of IQA metrics of camou-pixels-II with the background regions 
 
-
+9. CTGP-II TBGS 86 Locations (IQA).txt  ----> saved IQA metrics from the above code (step 8) in .txt file
 
 6.  ATC_cam_model2_v4.py  ----> code for dividing the camou-pixel-II geometry into six sub-regions and defining its surrounding regions for the purpose to acquire the average temperatures. Thus the total of six set-points and six process-variables are obtained for processing it with PID control algorithm.   
 
