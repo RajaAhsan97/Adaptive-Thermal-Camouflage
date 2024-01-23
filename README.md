@@ -44,7 +44,10 @@ CAMOU-PIXEL-I:
 
 5. TEC_PID_ctrl_single_pic_camouflage_v4.ino  ----> is the PID control algorithm code implemented on micro-controller for minimizing the error between the set-point (background temperature) and the process-variable (camou-pixel-I temperature).
 
-6. Pixelated_CV90.emf  ----> array of camou-pixel-II for creating the structure of Object 
+6. Pixelated_CV90.emf  ----> array of camou-pixel-II for creating the structure of Object
+
+7. ATC system II- CO SP extraction.py  ----> for grabbing set-points for every TECs on camou-pixel-II array forming the structure of CO
+8.  
 
 CAMOU-PIXEL-II:
 
