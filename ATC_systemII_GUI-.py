@@ -1,6 +1,7 @@
 """
     Code bt RMA
-    ATC system II GUI
+    ATC system II GUI:
+    The GUI is designed to blend the structure of CO ATC system II 
 """
 
 """Example Program for XTherm T3s Camera using OpenCV"""
