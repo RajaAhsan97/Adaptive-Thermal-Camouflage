@@ -9,7 +9,7 @@
     250 camou-pixels for the CO geometry. Thus 250 * 6 = 1500 setpoints are obtained.
 
     Refer: Pixelated CV90.emf file for the structure of CO
-           
+           CTGP-II Locations Temperatures.txt file for storing the set-points of TECs on the CO structure           
 """
 
 import numpy as np
