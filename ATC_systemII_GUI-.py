@@ -1,10 +1,23 @@
 """
     Code bt RMA
     ATC system II GUI:
-    The GUI is designed to blend the structure of CO ATC system II 
+    The GUI is designed to blend the structure of CO created using the ATC system II geometric structure in real time.
+
+    Work flow:
+    1. Load DLL file of thermal camera
+    2. The set-point saved in a txt file (by running the code "ATC system II- CO SP extraction.py") is loaded into created arrays named as:
+        TEC1[],TEC2[],TEC3[],TEC4[],TEC5[],TEC6[]
+    3. Detection of camou-pixel-II contour from the grabbed thermal frame and define the TECs orientation of camou-pixel.
+    3. Now, grab the SP of each index location of ATC system-II (refer to the "Pixelated CV90.emf" for the indexing of camou-pixel-II on the CO) one by one,
+       and transmit to the PID controller.
+    4  The time delay of 2 minutes is add for grabbing the SP of next indexed location of camou-pixel. So that the PID have sufficient time to minimize the 
+       error between the SP and PV.
+    5. The PV for the TECs are acquired from thermal frame and plotted on the GUI against their respective SPs.
+    6. After completion of time delay the each blended frame is saved.  
+    7. On completing the blending on 250 camou-pixel-II locactions the GUI displays the message and exit  
+    
 """
 
-"""Example Program for XTherm T3s Camera using OpenCV"""
 import cProfile
 from ctypes import *  ## ['ctypes' is a function library for PYTHON. It provides C compatible datatype & support calling functions in DLL  (see this for MATLAB)]
 import sys
