@@ -1,15 +1,15 @@
-# Code to create array of 7 CTGPs (system) at different locations of TBGs frame ad acquire the average teperature of TECs locations,
-# for furthe processing it in COMSOL Multiphysics
-
 """
     Code by RMA
 
-    Creating the structure of Characteristic Object on the Thermal Background
+    Creating the structure of Characteristic Object (CO) on the Thermal Background
     Scenario (TBGS) and acquiring the average temperature of background region
     (set-point) for storing it in a file for blending the CO in real-time GUI design
 
     For each camou-pixel-II six TECs are incorporated, this total number of
-    250 camou-pixels for the CO geometry. Thus 250 * 6 = 1500 setpoints are obtained
+    250 camou-pixels for the CO geometry. Thus 250 * 6 = 1500 setpoints are obtained.
+
+    Refer: Pixelated CV90.emf file for the structure of CO
+           
 """
 
 import numpy as np
@@ -58,8 +58,6 @@ fig.show()
 ##offset_y = [900, 600]   # 600
 
 f = open('CTGP-II Locations Temperatures_v1.txt', "a")
-##f.write('S.no\t offset_x\t offset_y\t TEC1\t TEC2\t TEC3\t TEC4\t TEC5\t TEC6\t TEC7\t')
-
     
 # Load CTGP-1 array temperature simulated data and find the coordinates of the geometry 
 read_file = pd.read_csv (r'DATA3.txt')
@@ -79,8 +77,6 @@ print('Resolution:', ROW, COL)
 CTGP_downscale_scale = (ROW, COL)
 
 CTGP_1_SIM_temp_reshape = cv2.resize(CTGP_1_SIM_temp_reshape, CTGP_downscale_scale, interpolation=cv2.INTER_LINEAR)
-
-
 
 CTGP_1_SIM_temp_reshape[np.isnan(CTGP_1_SIM_temp_reshape)] = 273.15
 
@@ -342,14 +338,16 @@ region5_X_coord, region5_Y_coord = np.where(np.all(IM == [0, 255, 255],axis=2))
 region6_X_coord, region6_Y_coord = np.where(np.all(IM == [.55, .255, .55],axis=2))
 
 
-
 offset_x = 1000 #1550  # 950
 offset_y = 60+35 #2005    #900   # 600
 
 TECs_temps = np.zeros((6,250))  # (6,10*30)
 COUNT_row = 0
 COUNT_col = 0
+
+# setting the offset location of the starting camou-pixel in every row
 y_offset = [60+0,60+35,60+0,60+35,60+0,60+(3*35),60+(4*35),60+(5*35),60+(6*35),60+0]
+# setting no. of camou-pixels in every row
 no_of_px = [18, 22, 25, 28, 29, 30, 28, 26, 23, 21]
 
 for loc_y in range(0, 10):
@@ -430,16 +428,15 @@ for loc_y in range(0, 10):
         for i in range(0,c):
             img2[coord[0][i] + offset_x, coord[1][i] + offset_y] = CTGP_1_SIM_temp_reshape_degC[coord[0][i], coord[1][i]]
 
-##        STRING = '\n\r' + str(loc_x) + '\t\t\t' + str(offset_x) + '\t\t\t' + str(offset_y) + '\t\t' + str("{:.2f}".format(tmp_avg2)) + '\t' + str("{:.2f}".format(tmp_avg3)) + '\t' + str("{:.2f}".format(tmp_avg4)) + '\t' + str("{:.2f}".format(tmp_avg5)) + '\t' + str("{:.2f}".format(tmp_avg6)) + '\t' + str("{:.2f}".format(tmp_avg7))
-##        f.write(STRING)
         offset_y = offset_y + 70
         COUNT_col = COUNT_col + 1
 
-##    f.write('\n\r-------------------------------------------------------------------')
+
     offset_x = offset_x + 60
-##    offset_y = 0
+
     offset_y = y_offset[loc_y]
 
+# Writing set-point temperatures of TECs in .txt file
 for jj in range(0, len(TECs_temps)):
     f.write('TEC' + str(jj+1) + ' ' + '{')
     for ii in range(0, len(TECs_temps[0])):
@@ -455,9 +452,3 @@ plt.xticks([])
 plt.yticks([])
 plt.colorbar(image)
 fig.show()
-
-##down_scale = (int(up_scale[0]/12), int(up_scale[1]/12))
-##img2 = cv2.resize(img2, down_scale, interpolation=cv2.INTER_LINEAR)
-
-##np.savetxt('1.csv',img2, fmt = '%.2f', delimiter=",") 
-##plt.savefig('1.png')
