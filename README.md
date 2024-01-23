@@ -9,6 +9,8 @@ TERMS and their definition
     hex_grids_data(20 sec).txt -----> sample file exported from FEM simulation software
    ![img1](https://github.com/RajaAhsan97/Adaptive-Thermal-Camouflage/assets/155144523/298e3e8b-9a45-4ec2-9da4-b0baaa691ffb)
 
+CAMOU-PIXEL-I:
+
 2.  camou-pixel_I GUI.py  ----->   further amendments are made in the GUI code to grabbing the contour of pixel, determining the average temperature of the camou-pixel and its background.
 
 3.  The thermal frame saved from the above GUI code is used for the testing code (shape_detection_v6.py) for acquiring the contour of camou-pixel-I by implementing Machine Vision Techniques (MVT) for model training, which   
@@ -41,3 +43,7 @@ TERMS and their definition
 4. xthermpyshowpyqt_(average_temps)v6.py ----> is the actual code in which all the above discussed techniques of machine vision for trained model is implemented and also connection of python with micro-controller is initiated. Which is used to blend the camou-pixel-I in the surrounding thermal background region by processing the acquired set-point and process-variable with the aid of Proportional Integrative and Derivative (PID) control algorithm.  
 
 5. TEC_PID_ctrl_single_pic_camouflage_v4.ino  ----> is the PID control algorithm code implemented on micro-controller for minimizing the error between the set-point (background temperature) and the process-variable (camou-pixel-I temperature).
+
+CAMOU-PIXEL-II:
+
+6.  ATC_cam_model2_v4.py  ----> code for dividing the camou-pixel-II geometry into six sub-regions and defining its surrounding regions for the purpose to acquire the average temperatures. Thus the total of six set-points and six process-variables are obtained for processing it with PID control algorithm.   
