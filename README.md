@@ -54,3 +54,5 @@ CAMOU-PIXEL-II:
 6.  ATC_cam_model2_v4.py  ----> code for dividing the camou-pixel-II geometry into six sub-regions and defining its surrounding regions for the purpose to acquire the average temperatures. Thus the total of six set-points and six process-variables are obtained for processing it with PID control algorithm.   
 
 7. ATC_systemII_GUI.py   ----> Final code 
+
+8. CTGP-II Locations Temperatures.txt ----> file in which set-points of every TECs are stored, which is then used for the PID controller 
